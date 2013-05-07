@@ -1,0 +1,85 @@
+version: 1
+
+Installation instructions for format checkers (optional).
+
+The format checkers help you validate the file formats of your input and
+output files.
+The format checkers are written in Go, but your programs can be written in any
+language.
+
+To install the format checkers, first make sure you have Go installed.
+
+===== To install Go =====
+
+If you have Go installed, you can skip this section.
+
+Download Go here: http://golang.org/doc/install
+Follow the instructions to install Go.
+Be sure to correctly set the environment variables.
+
+$GOROOT should point to the installation directory (e.g., "/usr/local/go", or
+"c:\Go" on Windows).
+
+$GOPATH should point to a directory you have write access (e.g., "${HOME}/.go"
+or "${HOME}/Go", create this directory if needed).
+
+$GOBIN should point to "${GOPATH}/bin". Binaries (executables) are installed
+there.
+
+Add $GOBIN to your ${PATH}, e.g., by the command
+  $ export PATH=${PATH}:${GOBIN}
+
+===== To install the format checkers =====
+
+Make sure you have correctly set the environment variables (see above).
+
+Copy this directory (mlst) into the directory "${GOPATH}/src" (create this
+directory if needed), so that e.g., this file is located at
+"${GOPATH}/src/mlst/INSTALL".
+
+Run the following command:
+  $ go install mlst/check_input mlst/check_output
+
+===== To use the format checkers =====
+
+To check the input file, run:
+  $ check_input
+or
+  $ check_input file.in
+
+The first command checks the default input file (i.e., "mlst.in"), and the
+second command checks the input file "file.in".
+
+To check the output file, run:
+  $ check_output
+or
+  $ check_output file.in file.out
+
+The first command checks the default output file (i.e., "mlst.out") against
+the default input file (i.e., "mlst.in").
+The second command checks the output file "file.out" against the input file
+"file.in".
+
+===== To hack the format checkers =====
+
+If you have modified the format checkers (e.g., by changing "config.go"), you
+can recompile and update your binaries by rerunning the installation command:
+  $ go install mlst/check_input mlst/check_output
+
+After that, $ check_input and $ check_output will call the new binaries.
+
+For an introduction to Go, see: http://tour.golang.org/
+
+If you want to write some Go programs to reuse our codes, add a new directory
+under mlst (see "mlst/check_input" and "mlst/check_output" for examples).
+To compile and install a new command whose source file is under, e.g.,
+"mlst/solve", run:
+  $ go install mlst/solve
+
+To run the new command:
+  $ solve
+
+===== To uninstall the format checkers =====
+
+Run the following command:
+  $ go clean -i mlst/check_input mlst/check_output mlst
